@@ -16,8 +16,11 @@ EosPro is an automated WhatsApp job search chatbot that sends weekly job updates
 - [Acknowledgments](#acknowledgments)
 
 ## Features
+
 - **WhatsApp Job Search Chatbot**: Automated job searches based on user profile (job title, location) and sends weekly updates.
+
 - **Real-Time Dashboard**: Users can track and manage job searches in a responsive, user-friendly dashboard.
+
 - **Admin Messaging**: Admin can send custom messages to all users, keeping them informed about new features and updates.
 
 ## Tech Stack
