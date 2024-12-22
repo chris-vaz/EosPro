@@ -1,7 +1,7 @@
 from pyngrok import ngrok
 
 # Set your ngrok authtoken
-NGROK_AUTHTOKEN = "2qZWr0FWu4GWbyfgZFLTH2tLAjY_5QsHMwyiyKf5TfgufQrgk"
+NGROK_AUTHTOKEN = " "
 ngrok.set_auth_token(NGROK_AUTHTOKEN)
 
 # Expose the Rasa server running on port 5005
