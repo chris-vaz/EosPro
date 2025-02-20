@@ -2,3 +2,7 @@ venv/
 venv_rasa/
 __pycache__/
 *.pyc
+
+# Ignoring the md file - futuregoals
+!future-goals.md
+/future-goals.md
