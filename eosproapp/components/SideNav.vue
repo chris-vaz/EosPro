@@ -1,63 +1,140 @@
 <template>
-    <aside class="bg-white shadow-md h-screen flex flex-col transition-all duration-200 ease-out"
-        :class="{ 'w-64': isHovered || !isCollapsed, 'w-20': !isHovered && isCollapsed }" @mouseenter="isHovered = true"
-        @mouseleave="isHovered = false">
-
-        <!-- Topbar Inside Sidebar -->
-        <div class="p-4 text-white font-semibold flex items-center justify-between bg-blue-500 transition-all">
-            <span v-if="isHovered || !isCollapsed" class="text-lg transition-opacity duration-200">EOSPRO</span>
-            <button @click="toggleSidebar">
-                <Icon :name="isCollapsed ? 'lucide:chevron-right' : 'lucide:chevron-left'" class="w-6 h-6" />
+    <aside class="bg-gray-900 h-screen flex flex-col transition-all duration-200 ease-out relative"
+        :class="{ 'w-64': isExpanded, 'w-16': !isExpanded }">
+        <!-- Logo -->
+        <div class="p-3 flex items-center justify-between border-b border-gray-800">
+            <div class="flex items-center">
+                <div class="text-emerald-500 mr-2">
+                    <Icon name="logos:nuxt-icon" class="w-6 h-6" />
+                </div>
+                <span v-if="isExpanded"
+                    class="text-white font-medium text-lg transition-opacity duration-200">Nuxt</span>
+            </div>
+            <button v-if="isExpanded" @click="toggleSidebar" class="text-gray-400 hover:text-white">
+                <Icon name="lucide:chevrons-left" class="w-5 h-5" />
+            </button>
+            <button v-else @click="toggleSidebar" class="text-gray-400 hover:text-white">
+                <Icon name="lucide:chevrons-right" class="w-5 h-5" />
             </button>
         </div>
 
-        <!-- User Profile (Hidden in Collapsed Mode) -->
-        <div v-if="isHovered || !isCollapsed" class="p-4 text-center border-b transition-opacity duration-200">
-            <img :src="user.avatar" alt="Avatar" class="w-16 h-16 rounded-full mx-auto border-2 border-blue-500" />
-            <h3 class="mt-2 font-medium">{{ user.name }}</h3>
-            <p class="text-sm text-gray-600">{{ user.email }}</p>
+        <!-- Search Bar -->
+        <div class="px-3 py-2">
+            <div class="relative flex items-center">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Icon name="lucide:search" class="w-4 h-4 text-gray-400" />
+                </div>
+                <input type="text" placeholder="Search..."
+                    class="w-full bg-gray-800 text-gray-200 text-sm rounded-md py-2 pl-9 pr-4 focus:outline-none focus:ring-1 focus:ring-gray-700"
+                    :class="{ 'pr-12': isExpanded }" />
+                <div v-if="isExpanded" class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <span class="text-xs text-gray-500 bg-gray-700 px-1.5 py-0.5 rounded">K</span>
+                </div>
+            </div>
         </div>
 
         <!-- Navigation Links -->
-        <nav class="flex-1 mt-4">
-            <SidebarLink to="/profile" icon="user" :collapsed="!isHovered && isCollapsed">Profile</SidebarLink>
-            <SidebarLink to="/jobs" icon="briefcase" :collapsed="!isHovered && isCollapsed">Jobs</SidebarLink>
-            <SidebarLink to="/applications" icon="file-text" :collapsed="!isHovered && isCollapsed">Applications
-            </SidebarLink>
-            <SidebarLink to="/settings" icon="settings" :collapsed="!isHovered && isCollapsed">Settings</SidebarLink>
+        <nav class="flex-1 mt-2 overflow-y-auto">
+            <NavItem to="/" icon="lucide:home" :expanded="isExpanded" active>
+                Home
+            </NavItem>
+
+            <NavItem to="/inbox" icon="lucide:inbox" :expanded="isExpanded" :badge="4">
+                Inbox
+            </NavItem>
+
+            <NavItem to="/customers" icon="lucide:users" :expanded="isExpanded">
+                Customers
+            </NavItem>
+
+            <NavGroup label="Settings" icon="lucide:settings" :expanded="isExpanded">
+                <NavSubItem to="/settings/general" :expanded="isExpanded">General</NavSubItem>
+                <NavSubItem to="/settings/members" :expanded="isExpanded">Members</NavSubItem>
+                <NavSubItem to="/settings/notifications" :expanded="isExpanded">Notifications</NavSubItem>
+                <NavSubItem to="/settings/security" :expanded="isExpanded">Security</NavSubItem>
+            </NavGroup>
         </nav>
 
-        <!-- Logout Button (Always Visible) -->
-        <div class="p-4">
-            <button class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition">
-                Logout
-            </button>
+        <!-- Footer Links -->
+        <div class="mt-auto border-t border-gray-800 pt-2">
+            <NavItem to="/feedback" icon="lucide:message-circle" :expanded="isExpanded" external>
+                Feedback
+            </NavItem>
+
+            <NavItem to="/help" icon="lucide:help-circle" :expanded="isExpanded" external>
+                Help & Support
+            </NavItem>
+
+            <!-- User Profile -->
+            <div class="p-3 mt-2 border-t border-gray-800 flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0 overflow-hidden">
+                    <img src="https://i.pravatar.cc/100?img=3" alt="User avatar" class="w-full h-full object-cover" />
+                </div>
+                <div v-if="isExpanded" class="ml-3 overflow-hidden">
+                    <p class="text-sm font-medium text-white truncate">Benjamin Canac</p>
+                </div>
+                <button v-if="isExpanded" class="ml-auto text-gray-400 hover:text-white">
+                    <Icon name="lucide:chevron-down" class="w-4 h-4" />
+                </button>
+            </div>
         </div>
+
+        <!-- Add a resize handle to the right edge of the sidebar -->
+        <div v-if="isExpanded"
+            class="absolute top-0 right-0 w-1 h-full cursor-ew-resize bg-gray-800 hover:bg-emerald-500"
+            @mousedown="startResize"></div>
     </aside>
 </template>
 
 <script setup>
-import SidebarLink from "@/components/Layout/SidebarLink.vue";
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from 'vue';
 
-const user = ref({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    avatar: "https://i.pravatar.cc/100?img=3",
-});
-
-// Sidebar states
-const isCollapsed = ref(true); // Default: collapsed
-const isHovered = ref(false); // Tracks hover state
+// Sidebar state
+const isExpanded = ref(true);
+const sidebarWidth = ref(256); // Default width (64px * 4)
 
 const toggleSidebar = () => {
-    isCollapsed.value = !isCollapsed;
+    isExpanded.value = !isExpanded.value;
 };
+
+// Resize functionality
+const startResize = (e) => {
+    e.preventDefault();
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResize);
+};
+
+const resize = (e) => {
+    // Set minimum width to 256px (16rem) and maximum to 384px (24rem)
+    const newWidth = Math.max(256, Math.min(384, e.clientX));
+    sidebarWidth.value = newWidth;
+    document.documentElement.style.setProperty('--sidebar-width', `${newWidth}px`);
+};
+
+const stopResize = () => {
+    window.removeEventListener('mousemove', resize);
+    window.removeEventListener('mouseup', stopResize);
+};
+
+// Clean up event listeners
+onUnmounted(() => {
+    window.removeEventListener('mousemove', resize);
+    window.removeEventListener('mouseup', stopResize);
+});
+
+// Set initial width
+onMounted(() => {
+    document.documentElement.style.setProperty('--sidebar-width', `${sidebarWidth.value}px`);
+});
 </script>
 
 <style scoped>
-/* Smoother transitions for high refresh rate screens */
 aside {
+    width: var(--sidebar-width, 256px);
     transition: width 0.2s ease-out;
+}
+
+aside.w-16 {
+    width: 64px !important;
 }
 </style>
