@@ -1,5 +1,5 @@
 <template>
-    <aside class="bg-[#1A2526] h-screen flex flex-col transition-all duration-200 ease-out relative"
+    <aside class="bg-[#2a2627] h-screen flex flex-col transition-all duration-200 ease-out relative"
         :class="{ 'w-[--sidebar-width]': isExpanded, 'w-12': !isExpanded }">
         <!-- Logo -->
         <div class="flex items-center justify-between border-b border-gray-800"
@@ -133,7 +133,7 @@
 
                 <!-- User Menu Dropdown -->
                 <div v-if="isUserMenuOpen && isExpanded"
-                    class="absolute bottom-full left-0 w-full bg-[#1A2526] rounded-md border border-gray-800 shadow-lg py-2 mb-2 z-10">
+                    class="absolute bottom-full left-0 w-full bg-[#1b1718] rounded-md border border-gray-800 shadow-lg py-2 mb-2 z-10">
                     <!-- Main Options -->
                     <NuxtLink to="/profile"
                         class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white">
@@ -401,7 +401,7 @@ onUnmounted(() => {
 aside {
     width: var(--sidebar-width, 256px);
     transition: width 0.2s ease-out;
-    background-color: #1A2526;
+    background-color: #2a2627;
     /* Match the dark background */
 }
 
@@ -476,7 +476,6 @@ footer a:hover {
 
 /* User menu dropdown */
 .user-menu .absolute {
-    background-color: #1A2526;
     /* Match dropdown background */
     border-color: #2D3748;
     /* Subtle border */
