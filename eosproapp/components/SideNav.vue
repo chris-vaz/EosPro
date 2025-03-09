@@ -1,5 +1,5 @@
 <template>
-    <aside class="bg-[#2a2627] h-screen flex flex-col transition-all duration-200 ease-out relative"
+    <aside class="bg-[#1C1C1F] h-screen flex flex-col transition-all duration-200 ease-out relative"
         :class="{ 'w-[--sidebar-width]': isExpanded, 'w-12': !isExpanded }">
         <!-- Logo -->
         <div class="flex items-center justify-between border-b border-gray-800"
@@ -24,7 +24,7 @@
                     <Icon name="lucide:search" class="w-5 h-5 text-gray-400" />
                 </div>
                 <input type="text" placeholder="Search..."
-                    class="w-full bg-gray-800 text-gray-200 text-base rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-gray-700"
+                    class="w-full bg-[#222832] text-gray-200 text-base rounded-md py-1 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-gray-700"
                     :class="{ 'pr-12': isExpanded }" />
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     <span class="text-xs text-gray-500 bg-gray-700 px-1.5 py-0.5 rounded">K</span>
@@ -40,7 +40,7 @@
         <!-- Navigation Links -->
         <nav class="flex-1 mt-4 overflow-y-auto">
             <NuxtLink to="/"
-                class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
                 :class="{ 'bg-[#2D3748] text-white': $route.path === '/', 'justify-center': !isExpanded }">
                 <div class="flex items-center">
                     <Icon name="lucide:home" class="w-6 h-6 text-gray-400 group-hover:text-white"
@@ -50,7 +50,7 @@
             </NuxtLink>
 
             <NuxtLink to="/inbox"
-                class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
                 :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
                 <div class="flex items-center">
                     <Icon name="lucide:inbox" class="w-6 h-6 text-gray-400 group-hover:text-white"
@@ -58,15 +58,15 @@
                     <span v-if="isExpanded" class="ml-3 text-base leading-6">Inbox</span>
                 </div>
                 <div v-if="isExpanded"
-                    class="ml-auto bg-emerald-500 text-white text-xs rounded-full px-2 py-0.5 min-w-6 text-center">
+                    class="ml-auto bg-[#0075DC] text-white text-xs rounded-full px-2 py-0.5 min-w-6 text-center">
                     4
                 </div>
                 <!-- Show badge as dot when collapsed -->
-                <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-emerald-500"></div>
+                <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
             </NuxtLink>
 
             <NuxtLink to="/customers"
-                class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
                 :class="{ 'bg-[#2D3748] text-white': $route.path === '/customers', 'justify-center': !isExpanded }">
                 <div class="flex items-center">
                     <Icon name="lucide:users" class="w-6 h-6 text-gray-400 group-hover:text-white"
@@ -78,7 +78,7 @@
             <!-- Settings Group -->
             <div>
                 <button @click="toggleSettingsGroup"
-                    class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white group"
+                    class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group"
                     :class="{ 'justify-center': !isExpanded, 'bg-[#2D3748]': isSettingsOpen }">
                     <div class="flex items-center flex-1">
                         <Icon name="lucide:settings" class="w-6 h-6 text-gray-400 group-hover:text-white"
@@ -90,9 +90,9 @@
                         <Icon name="lucide:chevron-down" class="w-5 h-5" />
                     </div>
                 </button>
-                <div v-if="isSettingsOpen && isExpanded" class="mt-2 ml-6 space-y-2">
+                <div v-if="isSettingsOpen && isExpanded" class="mt-2 ml-6">
                     <NuxtLink v-for="(item, index) in settingsItems" :key="index" :to="item.to"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white text-base leading-6">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white text-base leading-6">
                         {{ item.label }}
                     </NuxtLink>
                 </div>
@@ -111,7 +111,7 @@
             </NavItem>
 
             <NavItem to="/help" icon="lucide:help-circle" :expanded="isExpanded" external>
-                Help & Support
+                Support
             </NavItem>
 
             <!-- User Profile -->
@@ -136,26 +136,26 @@
                     class="absolute bottom-full left-0 w-full bg-[#1b1718] rounded-md border border-gray-800 shadow-lg py-2 mb-2 z-10">
                     <!-- Main Options -->
                     <NuxtLink to="/profile"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white">
                         <Icon name="lucide:user" class="w-5 h-5 text-gray-400" />
                         <span class="ml-3 text-base">Profile</span>
                     </NuxtLink>
 
                     <NuxtLink to="/billing"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white">
                         <Icon name="lucide:credit-card" class="w-5 h-5 text-gray-400" />
                         <span class="ml-3 text-base">Billing</span>
                     </NuxtLink>
 
                     <NuxtLink to="/settings"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white">
                         <Icon name="lucide:settings" class="w-5 h-5 text-gray-400" />
                         <span class="ml-3 text-base">Settings</span>
                     </NuxtLink>
 
                     <!-- Submenu Items -->
                     <button @click.stop="toggleThemeMenu"
-                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:palette" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">Theme</span>
@@ -164,7 +164,7 @@
                     </button>
 
                     <button @click.stop="toggleAppearanceMenu"
-                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:monitor" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">Appearance</span>
@@ -173,7 +173,7 @@
                     </button>
 
                     <button @click.stop="toggleTemplatesMenu"
-                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:layout-template" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">Templates</span>
@@ -183,7 +183,7 @@
 
                     <!-- External Links -->
                     <NuxtLink to="/documentation" target="_blank"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:book-open" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">Documentation</span>
@@ -192,7 +192,7 @@
                     </NuxtLink>
 
                     <NuxtLink to="https://github.com" target="_blank"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:github" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">GitHub repository</span>
@@ -201,7 +201,7 @@
                     </NuxtLink>
 
                     <NuxtLink to="/upgrade" target="_blank"
-                        class="flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
+                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
                         <div class="flex items-center">
                             <Icon name="lucide:zap" class="w-5 h-5 text-gray-400" />
                             <span class="ml-3 text-base">Upgrade to Pro</span>
@@ -213,7 +213,7 @@
 
                     <!-- Logout -->
                     <button @click="logout"
-                        class="w-full flex items-center px-4 py-2 text-gray-300 hover:bg-[#2D3748] hover:text-white">
+                        class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white">
                         <Icon name="lucide:log-out" class="w-5 h-5 text-gray-400" />
                         <span class="ml-3 text-base">Log out</span>
                     </button>
@@ -223,7 +223,7 @@
 
         <!-- Add a resize handle to the right edge of the sidebar -->
         <div v-if="isExpanded"
-            class="absolute top-0 right-0 w-1 h-full cursor-ew-resize bg-gray-800 hover:bg-emerald-500"
+            class="absolute top-0 right-0 w-1 h-full cursor-ew-resize bg-gray-800 hover:bg-[#0075DC]"
             @mousedown="startResize"></div>
     </aside>
 </template>
@@ -401,7 +401,7 @@ onUnmounted(() => {
 aside {
     width: var(--sidebar-width, 256px);
     transition: width 0.2s ease-out;
-    background-color: #2a2627;
+    background-color: #1C1C1F;
     /* Match the dark background */
 }
 
@@ -453,14 +453,6 @@ nav .text-white {
     /* Hover/active icon color */
 }
 
-/* Search input */
-input {
-    background-color: #2D3748;
-    /* Match search bar background */
-    color: #FFFFFF;
-    /* Text color */
-}
-
 /* Footer links */
 footer a {
     color: #A0AEC0;
@@ -477,7 +469,7 @@ footer a:hover {
 /* User menu dropdown */
 .user-menu .absolute {
     /* Match dropdown background */
-    border-color: #2D3748;
+    border-color: #27272A;
     /* Subtle border */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* Subtle shadow */

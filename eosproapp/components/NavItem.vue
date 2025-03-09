@@ -4,7 +4,7 @@
         :class="{
             'text-emerald-500': active,
             'justify-center p-2': !expanded,
-            'px-3 py-2': expanded
+            'px-3 py-1': expanded
         }">
         <Icon :name="icon" class="w-5 h-5 flex-shrink-0" />
         <span v-if="expanded" class="ml-3 text-sm">{{ $slots.default?.()?.[0]?.children || '' }}</span>
