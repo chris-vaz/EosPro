@@ -32,6 +32,9 @@ export default {
             }
         },
     },
+    definePageMeta: {
+        name: "Home", // This sets the route name to "Home"
+    }
 };
 </script>
 

@@ -1,11 +1,11 @@
 <template>
     <div class="min-h-screen flex">
-        <!-- Sidebar (Now contains the top bar) -->
+        <!-- Sidebar -->
         <SideNav />
 
         <div class="flex flex-col flex-1">
-            <!-- Top Bar (Inside Sidebar but appears in content for spacing) -->
-            <!-- <TopBar /> -->
+            <!-- Persistent Header -->
+            <HeaderNav />
 
             <!-- Main Content Area -->
             <main class="flex-1 p-4">
