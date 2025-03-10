@@ -24,10 +24,6 @@ export default {
         }
     },
     methods: {
-        toggleSidebar() {
-            // Emit the event to toggle sidebar from HeaderNav
-            this.$emit('toggleSidebar');
-        }
     }
 };
 </script>
