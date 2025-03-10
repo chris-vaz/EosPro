@@ -7,7 +7,11 @@
             </button> -->
             <h1 class="text-lg font-semibold capitalize">{{ pageTitle }}</h1>
         </div>
-        <div>Button here</div>
+        <div>
+            <button class="relative text-gray-600 hover:text-gray-800 cursor-pointer focus:outline-none">
+                <Icon size="24" name="lucide:bell" class="w-5 h-5" />
+            </button>
+        </div>
     </header>
 </template>
 

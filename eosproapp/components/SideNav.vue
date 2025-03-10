@@ -120,7 +120,7 @@
                     class="w-full flex items-center rounded-md hover:bg-[#2D3748] transition-colors"
                     :class="{ 'justify-center p-2': !isExpanded, 'p-2': isExpanded }">
                     <div class="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0 overflow-hidden">
-                        <img src="https://i.pravatar.cc/100?img=3" alt="User avatar"
+                        <img src="https://i.pravatar.cc/100?img=8" alt="User avatar"
                             class="w-full h-full object-cover" />
                     </div>
                     <div v-if="isExpanded" class="ml-3 overflow-hidden">
