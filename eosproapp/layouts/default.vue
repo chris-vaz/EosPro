@@ -8,7 +8,7 @@
             <HeaderNav />
 
             <!-- Main Content Area -->
-            <main class="flex-1 p-4">
+            <main class="flex-1 px-4">
                 <slot />
             </main>
         </div>
