@@ -6,7 +6,7 @@
             :class="{ 'p-4': isExpanded, 'p-2 justify-center': !isExpanded }">
             <div class="flex items-center" :class="{ 'justify-center w-full': !isExpanded }">
                 <div class="text-emerald-500" :class="{ 'mr-2': isExpanded }">
-                    <Icon name="logos:nuxt-icon" class="w-6 h-6" />
+                    <object :data="eosproLogo" type="image/svg+xml" class="w-6 h-6"></object>
                 </div>
                 <span v-if="isExpanded"
                     class="text-white font-bold text-lg transition-opacity duration-200">EOSPro</span>
@@ -49,13 +49,13 @@
                 </div>
             </NuxtLink>
 
-            <NuxtLink to="/inbox"
+            <NuxtLink to="/jobs"
                 class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
                 :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
                 <div class="flex items-center">
-                    <Icon name="lucide:inbox" class="w-6 h-6 text-gray-400 group-hover:text-white"
-                        :class="{ 'text-white': $route.path === '/inbox' }" />
-                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Inbox</span>
+                    <Icon name="lucide:briefcase" class="w-6 h-6 text-gray-400 group-hover:text-white"
+                        :class="{ 'text-white': $route.path === '/jobs' }" />
+                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Jobs</span>
                 </div>
                 <div v-if="isExpanded"
                     class="ml-auto bg-[#0075DC] text-white text-xs rounded-full px-2 py-0.5 min-w-6 text-center">
@@ -65,7 +65,7 @@
                 <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
             </NuxtLink>
 
-            <NuxtLink to="/customers"
+            <!-- <NuxtLink to="/customers"
                 class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
                 :class="{ 'bg-[#2D3748] text-white': $route.path === '/customers', 'justify-center': !isExpanded }">
                 <div class="flex items-center">
@@ -73,10 +73,10 @@
                         :class="{ 'text-white': $route.path === '/customers' }" />
                     <span v-if="isExpanded" class="ml-3 text-base leading-6">Customers</span>
                 </div>
-            </NuxtLink>
+            </NuxtLink> -->
 
             <!-- Settings Group -->
-            <div>
+            <!-- <div>
                 <button @click="toggleSettingsGroup"
                     class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group"
                     :class="{ 'justify-center': !isExpanded, 'bg-[#2D3748]': isSettingsOpen }">
@@ -96,12 +96,12 @@
                         {{ item.label }}
                     </NuxtLink>
                 </div>
-                <!-- Dots for collapsed state -->
+
                 <div v-if="isSettingsOpen && !isExpanded" class="flex flex-col items-center gap-2 py-2">
                     <div v-for="(_, index) in settingsItems" :key="index" class="w-2 h-2 rounded-full bg-gray-500">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </nav>
 
         <!-- Footer Links -->
@@ -120,7 +120,7 @@
                     class="w-full flex items-center rounded-md hover:bg-[#2D3748] transition-colors"
                     :class="{ 'justify-center p-2': !isExpanded, 'p-2': isExpanded }">
                     <div class="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0 overflow-hidden">
-                        <img src="https://i.pravatar.cc/100?img=8" alt="User avatar"
+                        <img src="https://th.bing.com/th/id/R.47cc38f4f6bc3261f3a78f688f7a67f1?rik=jLuo288ZxwlPmA&pid=ImgRaw&r=0" alt="User avatar"
                             class="w-full h-full object-cover" />
                     </div>
                     <div v-if="isExpanded" class="ml-3 overflow-hidden">
@@ -231,6 +231,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import eosproLogo from '../assets/eosprologo.svg';
 
 // Get current route
 const route = useRoute();
