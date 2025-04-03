@@ -61,6 +61,7 @@ export default {
     align-items: center;
     gap: 1rem;
     background-color: white;
+    border: 1px solid #CFCFCF;
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
