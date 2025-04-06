@@ -56,15 +56,25 @@ export default {
 }
 
 .kpi-card {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color: white;
-    border: 1px solid #CFCFCF;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: white;
+  border: 1px solid #CFCFCF;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.kpi-card:active {
+  transform: scale(0.98);
 }
 
 .kpi-icon {
