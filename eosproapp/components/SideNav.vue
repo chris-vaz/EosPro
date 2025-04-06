@@ -11,10 +11,6 @@
                 <span v-if="isExpanded"
                     class="text-white font-bold text-lg transition-opacity duration-200">EOSPro</span>
             </div>
-            <!-- Temporarily Hiding the chevron left toggle sidebar -->
-            <!-- <button v-if="isExpanded" @click="toggleSidebar" class="text-gray-400 hover:text-white">
-                <Icon name="lucide:chevrons-left" class="w-5 h-5" />
-            </button> -->
         </div>
 
         <!-- Search Bar -->
@@ -31,78 +27,59 @@
                 </div>
             </div>
         </div>
-        <div v-else class="p-2">
-            <button class="w-full flex justify-center p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-md">
-                <Icon name="lucide:search" class="w-6 h-6" />
+
+        <NuxtLink to="/"
+            class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+            :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
+            <div class="flex items-center">
+                <Icon name="lucide:home" class="w-6 h-6 text-gray-400 group-hover:text-white"
+                    :class="{ 'text-white': $route.path === '/jobs' }" />
+                <span v-if="isExpanded" class="ml-3 text-base leading-6">Home</span>
+            </div>
+            <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
+        </NuxtLink>
+
+        <NuxtLink to="/jobs"
+            class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+            :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
+            <div class="flex items-center">
+                <Icon name="lucide:briefcase" class="w-6 h-6 text-gray-400 group-hover:text-white"
+                    :class="{ 'text-white': $route.path === '/jobs' }" />
+                <span v-if="isExpanded" class="ml-3 text-base leading-6">Jobs</span>
+            </div>
+            <div v-if="isExpanded"
+                class="ml-auto bg-[#0075DC] text-white text-xs rounded-full px-2 py-0.5 min-w-6 text-center">
+                4
+            </div>
+            <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
+        </NuxtLink>
+
+        <!-- Settings Group -->
+        <div>
+            <button @click="toggleSettingsGroup"
+                class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group"
+                :class="{ 'justify-center': !isExpanded, 'bg-[#2D3748]': isSettingsOpen }">
+                <div class="flex items-center flex-1">
+                    <Icon name="lucide:settings" class="w-6 h-6 text-gray-400 group-hover:text-white"
+                        :class="{ 'text-white': isSettingsOpen }" />
+                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Settings</span>
+                </div>
+                <div v-if="isExpanded" class="text-gray-400 transition-transform duration-200"
+                    :class="{ 'rotate-180': isSettingsOpen }">
+                    <Icon name="lucide:chevron-down" class="w-5 h-5" />
+                </div>
             </button>
+            <div v-if="isSettingsOpen && isExpanded" class="mt-2 ml-6">
+                <NuxtLink v-for="(item, index) in settingsItems" :key="index" :to="item.to"
+                    class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white text-base leading-6">
+                    {{ item.label }}
+                </NuxtLink>
+            </div>
+
+            <div v-if="isSettingsOpen && !isExpanded" class="flex flex-col items-center gap-2 py-2">
+                <div v-for="(_, index) in settingsItems" :key="index" class="w-2 h-2 rounded-full bg-gray-500"></div>
+            </div>
         </div>
-
-        <!-- Navigation Links -->
-        <nav class="flex-1 mt-4 overflow-y-auto">
-            <NuxtLink to="/"
-                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
-                :class="{ 'bg-[#2D3748] text-white': $route.path === '/', 'justify-center': !isExpanded }">
-                <div class="flex items-center">
-                    <Icon name="lucide:home" class="w-6 h-6 text-gray-400 group-hover:text-white"
-                        :class="{ 'text-white': $route.path === '/' }" />
-                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Home</span>
-                </div>
-            </NuxtLink>
-
-            <NuxtLink to="/jobs"
-                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
-                :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
-                <div class="flex items-center">
-                    <Icon name="lucide:briefcase" class="w-6 h-6 text-gray-400 group-hover:text-white"
-                        :class="{ 'text-white': $route.path === '/jobs' }" />
-                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Jobs</span>
-                </div>
-                <div v-if="isExpanded"
-                    class="ml-auto bg-[#0075DC] text-white text-xs rounded-full px-2 py-0.5 min-w-6 text-center">
-                    4
-                </div>
-                <!-- Show badge as dot when collapsed -->
-                <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
-            </NuxtLink>
-
-            <!-- <NuxtLink to="/customers"
-                class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
-                :class="{ 'bg-[#2D3748] text-white': $route.path === '/customers', 'justify-center': !isExpanded }">
-                <div class="flex items-center">
-                    <Icon name="lucide:users" class="w-6 h-6 text-gray-400 group-hover:text-white"
-                        :class="{ 'text-white': $route.path === '/customers' }" />
-                    <span v-if="isExpanded" class="ml-3 text-base leading-6">Customers</span>
-                </div>
-            </NuxtLink> -->
-
-            <!-- Settings Group -->
-            <!-- <div>
-                <button @click="toggleSettingsGroup"
-                    class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group"
-                    :class="{ 'justify-center': !isExpanded, 'bg-[#2D3748]': isSettingsOpen }">
-                    <div class="flex items-center flex-1">
-                        <Icon name="lucide:settings" class="w-6 h-6 text-gray-400 group-hover:text-white"
-                            :class="{ 'text-white': isSettingsOpen }" />
-                        <span v-if="isExpanded" class="ml-3 text-base leading-6">Settings</span>
-                    </div>
-                    <div v-if="isExpanded" class="text-gray-400 transition-transform duration-200"
-                        :class="{ 'rotate-180': isSettingsOpen }">
-                        <Icon name="lucide:chevron-down" class="w-5 h-5" />
-                    </div>
-                </button>
-                <div v-if="isSettingsOpen && isExpanded" class="mt-2 ml-6">
-                    <NuxtLink v-for="(item, index) in settingsItems" :key="index" :to="item.to"
-                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white text-base leading-6">
-                        {{ item.label }}
-                    </NuxtLink>
-                </div>
-
-                <div v-if="isSettingsOpen && !isExpanded" class="flex flex-col items-center gap-2 py-2">
-                    <div v-for="(_, index) in settingsItems" :key="index" class="w-2 h-2 rounded-full bg-gray-500">
-                    </div>
-                </div>
-            </div> -->
-        </nav>
 
         <!-- Footer Links -->
         <div class="mt-auto border-t border-gray-800 pt-4 px-4">
@@ -120,8 +97,8 @@
                     class="w-full flex items-center rounded-md hover:bg-[#2D3748] transition-colors"
                     :class="{ 'justify-center p-2': !isExpanded, 'p-2': isExpanded }">
                     <div class="w-8 h-8 rounded-full bg-gray-700 flex-shrink-0 overflow-hidden">
-                        <img src="https://th.bing.com/th/id/R.47cc38f4f6bc3261f3a78f688f7a67f1?rik=jLuo288ZxwlPmA&pid=ImgRaw&r=0" alt="User avatar"
-                            class="w-full h-full object-cover" />
+                        <img src="https://th.bing.com/th/id/R.47cc38f4f6bc3261f3a78f688f7a67f1?rik=jLuo288ZxwlPmA&pid=ImgRaw&r=0"
+                            alt="User avatar" class="w-full h-full object-cover" />
                     </div>
                     <div v-if="isExpanded" class="ml-3 overflow-hidden">
                         <p class="text-base font-medium text-white truncate">System Administrator</p>
@@ -180,51 +157,9 @@
                         </div>
                         <Icon name="lucide:chevron-right" class="w-5 h-5 text-gray-400" />
                     </button>
-
-                    <!-- External Links -->
-                    <NuxtLink to="/documentation" target="_blank"
-                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
-                        <div class="flex items-center">
-                            <Icon name="lucide:book-open" class="w-5 h-5 text-gray-400" />
-                            <span class="ml-3 text-base">Documentation</span>
-                        </div>
-                        <Icon name="lucide:external-link" class="w-4 h-4 text-gray-500" />
-                    </NuxtLink>
-
-                    <NuxtLink to="https://github.com" target="_blank"
-                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
-                        <div class="flex items-center">
-                            <Icon name="lucide:github" class="w-5 h-5 text-gray-400" />
-                            <span class="ml-3 text-base">GitHub repository</span>
-                        </div>
-                        <Icon name="lucide:external-link" class="w-4 h-4 text-gray-500" />
-                    </NuxtLink>
-
-                    <NuxtLink to="/upgrade" target="_blank"
-                        class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white justify-between group">
-                        <div class="flex items-center">
-                            <Icon name="lucide:zap" class="w-5 h-5 text-gray-400" />
-                            <span class="ml-3 text-base">Upgrade to Pro</span>
-                        </div>
-                        <Icon name="lucide:external-link" class="w-4 h-4 text-gray-500" />
-                    </NuxtLink>
-
-                    <div class="border-t border-gray-800 my-2"></div>
-
-                    <!-- Logout -->
-                    <button @click="logout"
-                        class="w-full flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white">
-                        <Icon name="lucide:log-out" class="w-5 h-5 text-gray-400" />
-                        <span class="ml-3 text-base">Log out</span>
-                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- Add a resize handle to the right edge of the sidebar -->
-        <div v-if="isExpanded"
-            class="absolute top-0 right-0 w-1 h-full cursor-ew-resize bg-gray-800 hover:bg-[#0075DC]"
-            @mousedown="startResize"></div>
     </aside>
 </template>
 
