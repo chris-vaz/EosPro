@@ -1,9 +1,58 @@
 <template>
     <div class="home-container">
-        <h1 class="text-3xl font-bold">{{ greeting }}, System Administrator! {{ emoji }}</h1>
-        <p class="mt-2">{{ randomOverviewText }}</p>
-        <!-- KPI Grid Here -->
-        <KpiGrid />
+        <!-- Greeting Heading -->
+        <h1 class="text-3xl font-bold">
+            <template v-if="skeletonLoading">
+                <div class="skeleton skeleton-text w-64 h-8" />
+            </template>
+            <template v-else>
+                {{ greeting }}, System Administrator! {{ emoji }}
+            </template>
+        </h1>
+
+        <!-- Overview Text -->
+        <p class="mt-2">
+            <template v-if="skeletonLoading">
+                <div class="skeleton skeleton-text w-80 h-5" />
+            </template>
+            <template v-else>
+                {{ randomOverviewText }}
+            </template>
+        </p>
+
+        <!-- KPI Grid or Skeleton -->
+        <KpiGrid v-if="!skeletonLoading" />
+        <div v-else class="mt-4">
+            <div class="skeleton w-full h-40 rounded-lg" />
+        </div>
+
+        <!-- Saved Jobs or Skeleton -->
+        <div class="mt-10">
+            <SavedJobs v-if="!skeletonLoading" />
+            <div v-else class="flex flex-col gap-4">
+                <div class="skeleton w-48 h-6" /> <!-- Heading Skeleton -->
+                <div class="flex gap-4">
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 w-24 rounded-lg" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links or Skeleton -->
+        <div class="mt-10">
+            <QuickLink v-if="!skeletonLoading" />
+            <div v-else class="flex flex-col gap-4">
+                <div class="skeleton w-48 h-6" /> <!-- Heading Skeleton -->
+                <div class="flex gap-4">
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 flex-1 rounded-lg" />
+                    <div class="skeleton h-32 w-24 rounded-lg" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -29,12 +78,17 @@ export default {
                 "Your job search dashboard, simplified.",
                 "Keeping track of your job hunt, stress-free."
             ],
-            randomOverviewText: ''
+            randomOverviewText: '',
+            skeletonLoading: true,
         };
     },
     mounted() {
         this.updateGreeting();
         this.randomOverviewText = this.getRandomOverviewText();
+
+        this.$nextTick(() => {
+            this.skeletonLoading = false;
+        });
     },
     methods: {
         updateGreeting() {
@@ -55,7 +109,7 @@ export default {
         }
     },
     definePageMeta: {
-        name: "Home",
+        name: "Home"
     }
 };
 </script>
