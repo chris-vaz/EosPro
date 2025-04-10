@@ -5,7 +5,7 @@
             <!-- <button @click="toggleSidebar" class="text-gray-500 hover:text-gray-700 pr-3">
                 <Icon name="lucide:menu" class="w-6 h-6" />
             </button> -->
-            <h1 class="text-lg font-semibold capitalize">{{ pageTitle }}</h1>
+            <h1 class="text-lg font-bold capitalize">{{ pageTitle }}</h1>
         </div>
         <div>
             <button class="relative text-gray-600 hover:text-gray-800 cursor-pointer focus:outline-none">
