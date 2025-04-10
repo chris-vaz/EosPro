@@ -1,14 +1,15 @@
 <template>
-    <div class="min-h-screen flex">
+    <div class="h-screen flex overflow-hidden">
         <!-- Sidebar -->
         <SideNav />
 
+        <!-- Main Area -->
         <div class="flex flex-col flex-1">
-            <!-- Persistent Header -->
+            <!-- Sticky Header -->
             <HeaderNav />
 
-            <!-- Main Content Area -->
-            <main class="flex-1 px-4">
+            <!-- Scrollable Content Area -->
+            <main class="flex-1 overflow-y-auto px-4">
                 <slot />
             </main>
         </div>
