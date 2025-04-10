@@ -41,7 +41,7 @@
         </div>
 
         <!-- Quick Links or Skeleton -->
-        <div class="mt-10">
+        <div>
             <QuickLink v-if="!skeletonLoading" />
             <div v-else class="flex flex-col gap-4">
                 <div class="skeleton w-48 h-6" /> <!-- Heading Skeleton -->
