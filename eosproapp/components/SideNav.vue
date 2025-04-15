@@ -41,7 +41,7 @@
 
         <NuxtLink to="/edit"
             class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
-            :class="{ 'bg-[#2D3748] text-white': $route.path === '/edit', 'justify-center': !isExpanded }">
+            :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
             <div class="flex items-center">
                 <Icon name="lucide:pencil" class="w-6 h-6 text-gray-400 group-hover:text-white"
                     :class="{ 'text-white': $route.path === '/edit' }" />
