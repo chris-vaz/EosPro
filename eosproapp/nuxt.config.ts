@@ -7,10 +7,16 @@ export default defineNuxtConfig({
     'nuxt-icon',
     // other modules...
   ],
+  build: {
+    transpile: ['latex.js']
+  },
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
       tailwindcss(),
     ],
+    optimizeDeps: {
+      include: ['latex.js']
+    }
   },
 })
