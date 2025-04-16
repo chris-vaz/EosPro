@@ -11,11 +11,10 @@
             <div class="flex items-center">
                 <label for="template" class="mr-2 text-gray-700 ">Template:</label>
                 <select id="template" :value="selectedTemplate" @change="$emit('template-change', $event.target.value)"
-                    class="px-2 py-1 border rounded text-gray-700  border-gray-300">
-                    <option value="blank">Blank</option>
-                    <option value="article">Article</option>
-                    <option value="report">Report</option>
-                    <option value="letter">Letter</option>
+                    class="px-2 py-1 border rounded text-gray-700 border-gray-300">
+                    <option v-for="(value, key) in templates" :key="key" :value="key">
+                        {{ key }}
+                    </option>
                 </select>
             </div>
 
@@ -32,6 +31,12 @@
 </template>
 
 <script setup>
+import { templates } from '~/utils/template.js'
+
+
+const selectedTemplate = ref(Object.keys(templates)[0])
+
+
 defineProps({
     selectedTemplate: {
         type: String,
