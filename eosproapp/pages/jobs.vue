@@ -1,74 +1,87 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-        <!-- Search Bar -->
-        <div class="mb-6 flex items-center space-x-2">
+    <div class="min-h-screen bg-white px-4 py-10 md:px-10">
+        <!-- Filters -->
+        <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <input v-model="searchQuery" type="text" placeholder="Search jobs..."
-                class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <button @click="fetchJobs" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-                Search
-            </button>
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+
+            <select v-model="selectedCategory"
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm md:w-60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                <option value="">All Categories</option>
+                <option value="engineering">Engineering</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+            </select>
         </div>
 
-        <!-- Loading State -->
-        <div v-if="loading" class="text-center text-gray-500">Loading jobs...</div>
-
-        <!-- Job Listings -->
-        <div v-else class="space-y-4">
+        <!-- Job Cards -->
+        <div v-if="filteredJobs.length" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div v-for="job in filteredJobs" :key="job.id"
-                class="p-4 border rounded-lg flex justify-between items-center">
-                <div>
-                    <h3 class="text-lg font-bold">{{ job.title }}</h3>
-                    <p class="text-gray-600">{{ job.company }} - {{ job.location }}</p>
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition">
+                <h2 class="text-lg font-semibold text-gray-800">{{ job.title }}</h2>
+                <p class="mt-1 text-sm text-gray-600">{{ job.company }}</p>
+                <p class="mt-2 text-sm text-gray-500 truncate">{{ job.description }}</p>
+                <div class="mt-4 flex justify-between text-sm text-gray-400">
+                    <span>{{ job.location }}</span>
+                    <span>{{ job.type }}</span>
                 </div>
-                <a :href="job.link" target="_blank"
-                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
-                    Apply
-                </a>
             </div>
+        </div>
+
+        <!-- Empty State -->
+        <div v-else class="mt-20 text-center text-gray-500">
+            <p>No jobs found. Try adjusting your filters or search terms.</p>
         </div>
     </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
+<script setup lang="ts">
+const searchQuery = ref('')
+const selectedCategory = ref('')
 
-// Mock jobs data (Replace with real API call)
+// Simulated job data
 const jobs = ref([
     {
         id: 1,
-        title: "Frontend Developer",
-        company: "Google",
-        location: "Remote",
-        link: "https://www.google.com/careers",
+        title: 'Frontend Developer',
+        company: 'OpenAI',
+        description: 'Work on ChatGPT frontend with Vue 3 and Nuxt.',
+        location: 'Remote',
+        type: 'Full-Time',
+        category: 'engineering',
     },
     {
         id: 2,
-        title: "Backend Engineer",
-        company: "Amazon",
-        location: "New York",
-        link: "https://www.amazon.jobs",
+        title: 'Product Designer',
+        company: 'Figma',
+        description: 'Design intuitive interfaces for millions of users.',
+        location: 'Remote',
+        type: 'Contract',
+        category: 'design',
     },
-]);
+    {
+        id: 3,
+        title: 'Marketing Manager',
+        company: 'Notion',
+        description: 'Drive growth with creative marketing campaigns.',
+        location: 'San Francisco, CA',
+        type: 'Full-Time',
+        category: 'marketing',
+    },
+])
 
-const loading = ref(false);
-const searchQuery = ref("");
-
-// Filter jobs based on search input
 const filteredJobs = computed(() =>
-    jobs.value.filter((job) =>
-        job.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    jobs.value.filter(
+        (job) =>
+            (!selectedCategory.value || job.category === selectedCategory.value) &&
+            job.title.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
-);
-
-// Simulated fetch function (replace with real SerpAPI call)
-const fetchJobs = async () => {
-    loading.value = true;
-    setTimeout(() => {
-        loading.value = false;
-    }, 1000);
-};
+)
 </script>
 
 <style scoped>
-/* Add custom styles if needed */
+/* Optional: Custom primary color if not set globally */
+:root {
+    --tw-color-primary: #6366f1;
+}
 </style>
