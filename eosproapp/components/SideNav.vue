@@ -50,6 +50,17 @@
             <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
         </NuxtLink>
 
+        <NuxtLink to="/edit2"
+            class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
+            :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
+            <div class="flex items-center">
+                <Icon name="lucide:pencil" class="w-6 h-6 text-gray-400 group-hover:text-white"
+                    :class="{ 'text-white': $route.path === '/edit' }" />
+                <span v-if="isExpanded" class="ml-3 text-base leading-6">Editor V2</span>
+            </div>
+            <div v-if="!isExpanded" class="absolute top-2 right-2 w-3 h-3 rounded-full bg-[#0075DC]"></div>
+        </NuxtLink>
+
         <NuxtLink to="/jobs"
             class="flex items-center px-4 py-1 text-gray-300 hover:bg-[#2D3748] hover:text-white group relative"
             :class="{ 'bg-[#2D3748] text-white': $route.path === '/inbox', 'justify-center': !isExpanded }">
