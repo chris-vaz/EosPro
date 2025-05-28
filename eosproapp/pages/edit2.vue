@@ -2,11 +2,11 @@
     <div :class="themeClasses" class="min-h-screen transition-colors duration-200">
         <!-- Header -->
         <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-            <div class="px-6 py-4">
+            <div class="px-6 py-2">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
-                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Resume Editor</h1>
-                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                        <h1 class="text-xl font-bold text-gray-900 dark:text-white ml-3">Resume Editor</h1>
+                        <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             {{ activeResume?.name || 'No Resume Selected' }}
                         </div>
                     </div>
@@ -14,7 +14,7 @@
                     <div class="flex items-center space-x-3">
                         <!-- Action Buttons -->
                         <button @click="createNewResume"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+                            class="px-4 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 4v16m8-8H4"></path>
@@ -38,7 +38,7 @@
                         </button>
 
                         <button @click="togglePreview"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                            class="px-4 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
                             {{ showPreview ? 'Hide' : 'Show' }} Preview
                         </button>
 
