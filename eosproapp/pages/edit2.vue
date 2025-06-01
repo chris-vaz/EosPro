@@ -1,6 +1,7 @@
 <template>
     <div :class="themeClasses" class="min-h-screen transition-colors duration-200">
-        <!-- Header -->
+
+<!-- Header -->
         <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
             <div class="px-6 py-2">
                 <div class="flex items-center justify-between">
@@ -23,18 +24,18 @@
                         </button>
 
                         <button @click="duplicateResume"
-                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            class="px-4 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                             Duplicate
                         </button>
 
                         <button @click="downloadPDF"
-                            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            class="px-4 py-1 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
                             Download PDF
                         </button>
 
                         <button @click="printResume"
-                            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                            Print
+                            class="px-4 py-1 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                            Print Resume
                         </button>
 
                         <button @click="togglePreview"
@@ -60,7 +61,6 @@
                 </div>
             </div>
         </header>
-
         <div class="flex h-screen">
             <!-- Sidebar -->
             <div class="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
@@ -444,8 +444,7 @@
                 </div>
 
                 <!-- Preview Panel -->
-                <div v-if="showPreview"
-                    class="w-1/2 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto">
+            <div v-if="showPreview" class="w-1/2 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto print-area">
                     <div class="p-6">
                         <div class="bg-white shadow-lg rounded-lg p-8 max-w-4xl mx-auto" style="min-height: 11in;">
                             <!-- Header -->
@@ -682,6 +681,12 @@ const togglePreview = () => {
   showPreview.value = !showPreview.value
 }
 
+const showPrintPreview = () => {
+  showPreview.value = true;
+  // You could also add a special class to show exactly what will print
+  document.querySelector('.print-preview').classList.add('print-mode');
+}
+
 const createNewResume = () => {
   const newResume = {
     id: Date.now(),
@@ -739,7 +744,17 @@ const downloadPDF = () => {
 }
 
 const printResume = () => {
-  window.print()
+    if (!showPreview.value) {
+        // If preview isn't showing, show it first
+        showPreview.value = true;
+
+        // Wait for the preview to render before printing
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    } else {
+        window.print();
+    }
 }
 
 // Resume section manipulation
@@ -796,4 +811,26 @@ watch(resumeData, () => {
   saveCurrentResume()
 }, { deep: true })
 </script>
+
+<style scoped>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-area, .print-area * {
+        visibility: visible;
+    }
+    .print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+</style>
 
